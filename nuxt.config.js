@@ -71,7 +71,7 @@ export default {
         },
         endpoints: {
           login: {
-            url: '/user/login',
+            url: 'login',
             method: 'post'
           },
           user: false

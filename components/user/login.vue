@@ -3,7 +3,7 @@
         <img class="imagen" src="../../assets/images/welcome.jpg" alt="">
         <v-card-title class="Titulo">Inicia Sesion</v-card-title> <!--Este es el titulo-->
         <v-card-text>
-            <v-form ref="formLogin"> <!--Este es el formulario-->
+            <v-form ref="formilarioValido"> <!--Este es el formulario-->
                 <v-text-field class="inputs" label="Correo electrónico" placeholder="Correo electronico" v-model="correoElectronico" :rules="validarCorreo"/>
                 <v-text-field class="inputs" label="Contraseña" placeholder="Password" v-model="password" :rules="validarPassword"/>
             </v-form>
@@ -35,7 +35,7 @@
         methods:{
             async loginBackend (){
                 alert('Presionaste el boton')
-                const valid = this.$refs.formlogin.validate()
+                const valid = this.$refs.formilarioValido.validate()
                 if(valid){
                     const sendData = {
                         email: this.correoElectronico,
