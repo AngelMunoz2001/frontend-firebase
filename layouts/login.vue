@@ -13,5 +13,6 @@
         justify-content: center;
         align-content: center;
         align-items: center;
+        background-image: url(../assets/images/fondo.jpg);
     }
 </style>
