@@ -1,4 +1,4 @@
-import { default } from '../../layouts/dashboard.vue';
+
 <template>
     <v-col cols= "12">
       <v-row class="renglon">
@@ -111,6 +111,7 @@ import { default } from '../../layouts/dashboard.vue';
 </template>
 
 <script>
+
     export default {
         data() {
             return {
@@ -137,7 +138,7 @@ import { default } from '../../layouts/dashboard.vue';
                         text: 'Número de telefono',
                         align: 'center',
                         sortable: true,
-                        value: 'numer'
+                        value: 'number'
                     },
                     {
                         text: 'Acciones',
@@ -170,6 +171,7 @@ import { default } from '../../layouts/dashboard.vue';
             this.loadUsers()
         },
         methods: {
+
             async loadUsers() {
                 const config = {
                     headers: {
@@ -188,6 +190,7 @@ import { default } from '../../layouts/dashboard.vue';
                         console.log('error', error)
                     })
             },
+
             open (){
                 this.openDialog = true
             },
@@ -230,8 +233,35 @@ import { default } from '../../layouts/dashboard.vue';
                 this.nameUpdate = this.datos.name
                 this.lastnameUpdate = this.datos.lastname
                 this.passwordUpdate = this.datos.password
+                this.numberUpdate = this.datos.number
                 this.openDialogUpdate = true
             },
+            async eraseUser(){
+              if(this.admin !== 'adminangel'){
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8',
+                        'Access-Control-Allow-Origin': '*'
+                    }
+                }
+                const usuario = {
+                    id: this.idEraseUser
+                }
+                await this.$axios.post('/eraseuser', usuario, config)
+                    .then((res) => {
+                        console.log(res)
+                        if(res.data.message === 'Usuario borrado'){
+                            this.loadUsers()
+                            this.openDialogErase = false
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+              }
+              
+            },
+
             async actualizaUsuario (){
                 
                 const config = {

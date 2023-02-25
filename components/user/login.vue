@@ -88,5 +88,9 @@
     .Titulo{
         margin-top: -60%;
         justify-content: center;
+        font-size: 30px;
+        background-color: rgb(82, 19, 141);
+        border-radius: 5px;
+        color: #ffffff;
     }
 </style>
