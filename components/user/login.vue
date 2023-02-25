@@ -45,7 +45,7 @@
                         data: sendData
                     }).then(async (res) =>{
                         console.log('Respuesta del back:', res)
-                        if(res.data.error == null){
+                        if(res.data.alert == 'Success'){
                             this.$router.push('/dashboard')
                         }
                     }).catch((error) =>{
