@@ -250,8 +250,8 @@
               
             },
 
-            dialogUpdate(email){
-                this.datos = email
+            dialogUpdate(item){
+                this.datos = item
                 this.nameUpdate = this.datos.name
                 this.lastnameUpdate = this.datos.lastname
                 this.numberUpdate = this.datos.number
@@ -267,6 +267,7 @@
                     }
                 }
                 const usuarioNuevo = {
+                    email: this.emailEraseUser,
                     name: this.nameUpdate,
                     lastname: this.lastnameUpdate,
                     number: this.numberUpdate
