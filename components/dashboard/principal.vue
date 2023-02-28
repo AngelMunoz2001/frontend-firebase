@@ -72,7 +72,6 @@
                     <v-form ref="formUpdate">
                         <v-text-field v-model="nameUpdate" type="text" placeholder="Name:" label="Name"></v-text-field>
                         <v-text-field v-model="lastnameUpdate" type="text" placeholder="Lastname:" label="Lastname"></v-text-field>
-                        <v-text-field v-model="passwordUpdate" type="password" placeholder="Password:" label="Password"></v-text-field>
                         <v-text-field v-model="numberUpdate" type="number" placeholder="Number:" label="Number"></v-text-field>
                     </v-form>
                 </v-card-text>
@@ -101,12 +100,7 @@
                     <v-btn color="green" @click="eraseUser">Borrar</v-btn>
                 </v-card-actions>
             </v-card>
-        </v-dialog>
-
-        
-        
-
-        
+        </v-dialog>        
     </v-col>
 </template>
 
@@ -153,13 +147,15 @@
                 email: '',
                 password: '',
                 number: '',
-                idEraseUser: '',
+
+                emailEraseUser: '',
+
                 openDialogErase: false,
                 admin: 'adminangel',
                 openDialogUpdate: false,
+
                 nameUpdate:'',
                 lastnameUpdate: '',
-                passwordUpdate: '',
                 numberUpdate: '',
                 datos: {
 
@@ -223,19 +219,11 @@
             },
 
             dialogUser(item){
-                this.idEraseUser = item._id
+                this.emailEraseUser = item.email
                 this.admin = item.name
                 this.openDialogErase = true
             },
 
-            dialogUpdate(item){
-                this.datos = item
-                this.nameUpdate = this.datos.name
-                this.lastnameUpdate = this.datos.lastname
-                this.passwordUpdate = this.datos.password
-                this.numberUpdate = this.datos.number
-                this.openDialogUpdate = true
-            },
             async eraseUser(){
               if(this.admin !== 'adminangel'){
                 const config = {
@@ -245,12 +233,12 @@
                     }
                 }
                 const usuario = {
-                    id: this.idEraseUser
+                    email: this.emailEraseUser
                 }
-                await this.$axios.post('/eraseuser', usuario, config)
+                await this.$axios.post('/delete', usuario, config)
                     .then((res) => {
                         console.log(res)
-                        if(res.data.message === 'Usuario borrado'){
+                        if(res.data.alert === 'success'){
                             this.loadUsers()
                             this.openDialogErase = false
                         }
@@ -262,6 +250,14 @@
               
             },
 
+            dialogUpdate(email){
+                this.datos = email
+                this.nameUpdate = this.datos.name
+                this.lastnameUpdate = this.datos.lastname
+                this.numberUpdate = this.datos.number
+                this.openDialogUpdate = true
+            },
+
             async actualizaUsuario (){
                 
                 const config = {
@@ -271,17 +267,14 @@
                     }
                 }
                 const usuarioNuevo = {
-                    id: this.datos._id,
                     name: this.nameUpdate,
                     lastname: this.lastnameUpdate,
-                    email: this.datos.email,
-                    password: this.datos.passwordUpdate,
-                    number: this.datos.numberUpdate
+                    number: this.numberUpdate
                 }
-                await this.$axios.post('/user/updateuser', usuarioNuevo, config)
+                await this.$axios.post('/update', usuarioNuevo, config)
                     .then((res) => {
                         console.log(res)
-                        if(res.data.message === 'Usuario borrado'){
+                        if(res.data.alert=== 'success'){
                             this.loadUsers()
                             this.openDialogUpdate = false
                         }
