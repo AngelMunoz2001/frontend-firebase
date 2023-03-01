@@ -258,7 +258,7 @@
                 this.openDialogUpdate = true
             },
 
-            async actualizaUsuario (){
+            async actualizaUsuario (emailEraseUser){
                 
                 const config = {
                     headers: {
@@ -267,7 +267,7 @@
                     }
                 }
                 const usuarioNuevo = {
-                    email: this.emailEraseUser,
+                    email: this.datos.email,
                     name: this.nameUpdate,
                     lastname: this.lastnameUpdate,
                     number: this.numberUpdate
@@ -275,7 +275,7 @@
                 await this.$axios.post('/update', usuarioNuevo, config)
                     .then((res) => {
                         console.log(res)
-                        if(res.data.alert=== 'success'){
+                        if(res.data.alert === 'success'){
                             this.loadUsers()
                             this.openDialogUpdate = false
                         }
